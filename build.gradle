@@ -5,6 +5,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://maven.google.com' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
@@ -45,4 +46,5 @@ ext {
     ankoVersion = '0.10.1'
     constraintlayout = '1.0.2'
     stethoVersion = '1.4.1'
+    appComponants = '1.0.0'
 }
