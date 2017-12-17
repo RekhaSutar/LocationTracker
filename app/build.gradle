@@ -14,6 +14,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -28,7 +29,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation "com.android.support:design:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
@@ -37,10 +38,10 @@ dependencies {
     compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintlayout"
     kapt "com.android.databinding:compiler:$rootProject.ext.kaptVersion"
-
     implementation "android.arch.lifecycle:common-java8:$rootProject.ext.appComponants"
     implementation "android.arch.lifecycle:extensions:$rootProject.ext.appComponants"
     testImplementation "android.arch.core:core-testing:$rootProject.ext.appComponants"
     implementation "android.arch.persistence.room:runtime:$rootProject.ext.appComponants"
-
+    implementation 'com.google.android.gms:play-services:11.6.2'
+    implementation 'com.google.android.gms:play-services-maps:11.6.2'
 }
