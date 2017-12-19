@@ -4,6 +4,7 @@ import android.Manifest
 import android.arch.lifecycle.LiveData
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import com.google.android.gms.location.*
@@ -15,9 +16,9 @@ class LocationLiveData(private val context: Context) : LiveData<Location>() {
     override fun onActive() {
         super.onActive()
         if (ActivityCompat.checkSelfPermission(context,
-                Manifest.permission.ACCESS_FINE_LOCATION) !== PackageManager.PERMISSION_GRANTED &&
+                Manifest.permission.ACCESS_FINE_LOCATION) != PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(context,
-                        Manifest.permission.ACCESS_COARSE_LOCATION) !== PackageManager.PERMISSION_GRANTED) {
+                        Manifest.permission.ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED) {
             return
         }
         val locationProviderClient = getFusedLocationProviderClient()
