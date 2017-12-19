@@ -1,0 +1,17 @@
+Tasks and Sub Tasks
+-------------------
+
+Initial Setup
+-------------
+a. Created Location Tracker project in google developers console
+b. Enabled Google Maps Android API
+c. Created key for Location Tracker application to use it in the project
+    // In the app
+d. Check for GooglePlayServices is installed in the device or no.
+e. On splash screen request for Location permission and enable GPS to use the app
+
+Primary Goals:
+--------------
+1. Build an app that can display the user’s current currentLocation on a map
+    a. LocationViewModel : which maintains the LiveData of current Location
+

@@ -4,7 +4,6 @@ import android.arch.lifecycle.ViewModel
 import android.os.AsyncTask
 import rekha.com.locationtracker.MainApplication
 
-
 class UserJourneyViewModel : ViewModel() {
 
     private var appDatabase: DataBase = DataBase.getAppDatabase(MainApplication.getInstance())
@@ -18,5 +17,9 @@ class UserJourneyViewModel : ViewModel() {
             appDatabase.userJourneyDaoModel().addUserJourney(userJourney[0])
             return
         }
+    }
+
+    fun getAllUserJourneys(): List<UserJourney>? {
+        return appDatabase.userJourneyDaoModel().allUserJourneys
     }
 }

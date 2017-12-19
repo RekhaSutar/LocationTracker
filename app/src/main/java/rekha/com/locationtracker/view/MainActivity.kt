@@ -1,8 +1,12 @@
 package rekha.com.locationtracker.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import rekha.com.locationtracker.R
+import rekha.com.locationtracker.view.userjourney.UserJourneyListActivity
 
 
 class MainActivity : BaseActivity() {
@@ -17,5 +21,15 @@ class MainActivity : BaseActivity() {
         switchLocationTrack.setOnCheckedChangeListener { _, isChecked ->
             mapFrag.setUserMovementTrackingFlag(isChecked)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        startActivity(Intent(this, UserJourneyListActivity::class.java))
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">LocationTracker</string>
     <string name="location_permission_explanation_msg">Please give Location access permission to use this app</string>
-    <string name="location_enable_msg">Enable location from your Settings</string>
+    <string name="location_enable_msg">Enable currentLocation from your Settings</string>
 
 </resources>
