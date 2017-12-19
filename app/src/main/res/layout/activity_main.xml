@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="rekha.com.locationtracker.view.LocationFragment"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.MainActivity" />
+    android:layout_height="match_parent">
+
+    <Switch
+        android:id="@+id/switchLocationTrack"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:padding="10dp"
+        android:text="Track Location" />
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="rekha.com.locationtracker.view.LocationFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/switchLocationTrack"
+        tools:context=".view.MainActivity" />
+</RelativeLayout>

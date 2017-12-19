@@ -20,15 +20,19 @@ class SplashActivity : BaseActivity() {
 
         if (checkIfGooglePlayServicesIsInstalled(this)) return
 
-        //Check for location permission
-        if (checkLocationPermission(this)) {
-            if (!isLocationEnabled(this)) {
-                promptToEnableGPS()
-            } else {
-                startActivity(Intent(this, MainActivity::class.java))
+        if (!isLocationEnabled(this)) {
+            promptToEnableGPS()
+        } else {
+            //Check for location permission
+            if (checkLocationPermission(this)) {
+                moveToNextScreen()
             }
         }
+    }
 
+    private fun moveToNextScreen(){
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int,
@@ -36,11 +40,7 @@ class SplashActivity : BaseActivity() {
         when (requestCode) {
             REQUEST_CODE_LOCATION_PERMISSION -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (!isLocationEnabled(this)) {
-                        promptToEnableGPS()
-                    } else {
-                        startActivity(Intent(this, MainActivity::class.java))
-                    }
+                    moveToNextScreen()
                 } else {
                     val builder = AlertDialog.Builder(this)
                     builder.setMessage(resources.getString(R.string.location_permission_explanation_msg))
