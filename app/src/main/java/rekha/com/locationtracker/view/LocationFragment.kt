@@ -67,7 +67,6 @@ class LocationFragment : SupportMapFragment(), OnMapReadyCallback {
                 googleMap.addPolyline(PolylineOptions().add(previousLatLng, newLatLng).width(2.0f).color(Color.BLUE).geodesic(true))
             }
         }
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
