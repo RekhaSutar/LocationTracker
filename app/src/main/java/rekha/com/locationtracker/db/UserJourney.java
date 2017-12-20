@@ -23,17 +23,6 @@ public class UserJourney {
     public void setId(int id) {
         this.id = id;
     }
-//
-//    @ColumnInfo(name = "user")
-//    private String name = "";
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
 
     @ColumnInfo(name = "user_journey")
     private List<Location> user_journey = new ArrayList<>();

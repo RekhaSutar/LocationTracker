@@ -31,7 +31,9 @@
             android:value="AIzaSyADU0xo8tUoVe_BjKk6d2yfrJpEe0fyXsU" />
 
         <activity android:name=".view.MainActivity" />
-        <activity android:name=".view.userjourney.UserJourneyListActivity"></activity>
+        <activity android:name=".view.userjourney.UserJourneyListActivity"/>
+
+        <service android:name=".service.LocationTrackingService" />
     </application>
 
 </manifest>

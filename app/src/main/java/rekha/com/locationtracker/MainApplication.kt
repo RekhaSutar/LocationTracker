@@ -9,7 +9,7 @@ class MainApplication : Application() {
 
         application = this
 
-        Stetho.initializeWithDefaults(this);
+        Stetho.initializeWithDefaults(this)
     }
 
     companion object {
@@ -18,6 +18,7 @@ class MainApplication : Application() {
         fun getInstance(): MainApplication {
             return application
         }
+
     }
 
 }
