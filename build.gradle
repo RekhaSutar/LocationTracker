@@ -45,5 +45,4 @@ ext {
     googlePlayService = '11.6.2'
     stethoVersion = '1.4.1'
 
-    daggerVersion = '2.10'
 }

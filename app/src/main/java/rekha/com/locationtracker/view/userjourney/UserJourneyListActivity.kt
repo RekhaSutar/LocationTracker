@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_user_journey_list.*
 import rekha.com.locationtracker.R
-import rekha.com.locationtracker.db.UserJourney
-import rekha.com.locationtracker.db.UserJourneyViewModel
+import rekha.com.locationtracker.data.db.UserJourney
+import rekha.com.locationtracker.data.db.UserJourneyViewModel
 import rekha.com.locationtracker.view.BaseActivity
 
 

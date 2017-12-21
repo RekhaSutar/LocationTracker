@@ -5,10 +5,14 @@ import android.arch.lifecycle.ViewModel
 
 class LocationViewModel : ViewModel() {
 
-    private var repository: RepositoryImpl = RepositoryImpl
+    private var repository: Repository = Repository
 
     fun getLocation(): LiveData<Location> {
         return repository.getLocation()
+    }
+
+    fun getUserJourney(): List<Location> {
+        return repository.getUserJourney()
     }
 
     fun startTracking(){

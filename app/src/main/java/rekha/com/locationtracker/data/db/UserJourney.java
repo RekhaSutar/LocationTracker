@@ -1,4 +1,4 @@
-package rekha.com.locationtracker.db;
+package rekha.com.locationtracker.data.db;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

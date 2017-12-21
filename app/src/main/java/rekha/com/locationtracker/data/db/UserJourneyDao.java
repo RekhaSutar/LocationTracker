@@ -1,4 +1,4 @@
-package rekha.com.locationtracker.db;
+package rekha.com.locationtracker.data.db;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
@@ -11,7 +11,7 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 @Dao
 public interface UserJourneyDao {
 
-    @Query("SELECT * FROM UserJourney")
+    @Query("SELECT * FROM UserJourney  order by user_journey desc")
     List<UserJourney> getAllUserJourneys();
 
     @Insert(onConflict = REPLACE)

@@ -4,12 +4,15 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.graphics.Color
+import android.os.Bundle
 import android.util.Log
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import rekha.com.locationtracker.data.Location
 import rekha.com.locationtracker.data.LocationViewModel
@@ -23,11 +26,11 @@ class LocationFragment : SupportMapFragment(), OnMapReadyCallback {
     private var googleMap: GoogleMap? = null
     private var isTrackingOn = false
 
+
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         locationViewModel = ViewModelProviders.of(activity).get(LocationViewModel::class.java)
         getMapAsync(this)
-        startLocationUpdates()
     }
 
     private fun startLocationUpdates() {
@@ -38,23 +41,34 @@ class LocationFragment : SupportMapFragment(), OnMapReadyCallback {
     }
 
     private fun updateLocation(newLocation: Location) {
-
-        Log.d(TAG, "updateLocation" + " called")
-        val newLatLng = LatLng(newLocation.latitude, newLocation.longitude)
-        if (isTrackingOn && currentLocation != null) {
-            val previousLatLng = LatLng(currentLocation.latitude, currentLocation.longitude)
-            googleMap?.addPolyline(PolylineOptions().add(previousLatLng, newLatLng).width(2.0f).color(Color.BLUE).geodesic(true))
-            googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 10f))
+        if (isTrackingOn) {
+            showUserPathOnMap()
         } else {
-            googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 10f))
+            if (newLocation.latitude != 0.0 && newLocation.longitude != 0.0) {
+                Log.d(TAG, "inside if")
+                val newLatLng = LatLng(newLocation.latitude, newLocation.longitude)
+                googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(newLatLng, 5f))
+            }
+
+            Log.d(TAG, "outside if")
         }
         this.currentLocation = newLocation
+
+        Log.d(TAG, "updateLocation" + "lat:" + newLocation.latitude + " lng:" + newLocation.longitude)
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
         if (checkLocationPermission(activity)) {
             googleMap.isMyLocationEnabled = true
+            googleMap.setOnMyLocationChangeListener { location ->
+                Log.d(TAG, "first time location setting")
+                googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location!!.latitude,
+                        location.longitude), 5f))
+                googleMap.setOnMyLocationChangeListener(null)
+
+            }
         }
     }
 
@@ -68,8 +82,7 @@ class LocationFragment : SupportMapFragment(), OnMapReadyCallback {
     }
 
     override fun onPause() {
-
-        Log.d(TAG, "onPause" + " called")
+        Log.d(TAG, "onPause")
         super.onPause()
         if (!isTrackingOn) {
             locationViewModel.stopLocationUpdates()
@@ -78,8 +91,31 @@ class LocationFragment : SupportMapFragment(), OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG, "onResume" + " called")
-        startLocationUpdates()
+        Log.d(TAG, "onResume")
+        if (isTrackingOn) {
+            showUserPathOnMap()
+        } else {
+            startLocationUpdates()
+        }
+    }
+
+    private fun showUserPathOnMap() {
+        googleMap?.clear()
+        Log.e(TAG, "showUserPathOnMap" + " LocationTrackingService")
+        if (locationViewModel.getUserJourney().isNotEmpty()) {
+            val listLatLng = arrayListOf<LatLng>()
+            locationViewModel.getUserJourney().map {
+                listLatLng.add(LatLng(it.latitude, it.longitude))
+            }
+            val options = PolylineOptions().width(5f).color(Color.BLUE).geodesic(true)
+            options.addAll(listLatLng)
+            googleMap?.addPolyline(options)
+            val cameraPosition = CameraPosition.Builder()
+                    .target(LatLng(listLatLng[listLatLng.size - 1].latitude, listLatLng[listLatLng.size - 1].longitude))
+                    .zoom(5f)
+                    .build()
+            googleMap?.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        }
     }
 
 }

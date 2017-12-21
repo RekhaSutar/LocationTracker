@@ -1,4 +1,4 @@
-package rekha.com.locationtracker.db
+package rekha.com.locationtracker.data.db
 
 import android.arch.lifecycle.ViewModel
 import rekha.com.locationtracker.MainApplication
