@@ -11,10 +11,12 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 @Dao
 public interface UserJourneyDao {
 
-    @Query("SELECT * FROM UserJourney  order by user_journey desc")
+    @Query("SELECT * FROM UserJourney  order by id desc")
     List<UserJourney> getAllUserJourneys();
 
     @Insert(onConflict = REPLACE)
     void addUserJourney(UserJourney userJourney);
 
+    @Query("SELECT * FROM UserJourney  where id = :journeyId")
+    UserJourney getUserJourney(int journeyId );
 }

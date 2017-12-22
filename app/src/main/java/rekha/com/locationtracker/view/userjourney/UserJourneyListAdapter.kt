@@ -1,6 +1,7 @@
 package rekha.com.locationtracker.view.userjourney
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateFormat
@@ -19,7 +20,10 @@ import java.util.*
 class UserJourneyListAdapter(private val context: Context) : RecyclerView.Adapter<ViewHolder>(), View.OnClickListener {
     override fun onClick(v: View?) {
         val userJourney = v?.tag as UserJourney
-        initiatePopupWindow(v, userJourney)
+        val intent = Intent(context, UserJourneyDetailsActivity::class.java)
+        intent.putExtra(ARG_JOURNEY_ID, userJourney.id)
+        context.startActivity(intent)
+//        initiatePopupWindow(v, userJourney)
     }
 
     var userJourneyList: List<UserJourney>? = null

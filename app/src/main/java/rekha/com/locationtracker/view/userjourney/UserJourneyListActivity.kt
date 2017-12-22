@@ -20,8 +20,6 @@ class UserJourneyListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_journey_list)
 
-        userJourneyViewModel = ViewModelProviders.of(this).get(UserJourneyViewModel::class.java)
-
         adapter = UserJourneyListAdapter(this)
         list.layoutManager = LinearLayoutManager(this)
         list.adapter = adapter

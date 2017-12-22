@@ -10,4 +10,8 @@ class UserJourneyViewModel : ViewModel() {
     fun getAllUserJourneys(): List<UserJourney>? {
         return appDatabase.userJourneyDaoModel().allUserJourneys
     }
+
+    fun getJourney(journeyId : Int): UserJourney? {
+        return appDatabase.userJourneyDaoModel().getUserJourney(journeyId)
+    }
 }

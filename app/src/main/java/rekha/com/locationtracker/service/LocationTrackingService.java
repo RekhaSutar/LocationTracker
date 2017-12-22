@@ -20,7 +20,7 @@ public class LocationTrackingService extends Service {
 
     private LocationManager mLocationManager = null;
     private static final int LOCATION_INTERVAL = 1000;
-    private static final float LOCATION_DISTANCE = 10f;
+    private static final float LOCATION_DISTANCE = 3f;
 
     LocationListener[] locationListeners;
 

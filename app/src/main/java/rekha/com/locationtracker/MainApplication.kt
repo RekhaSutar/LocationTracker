@@ -1,7 +1,6 @@
 package rekha.com.locationtracker
 
 import android.app.Application
-import com.facebook.stetho.Stetho
 
 class MainApplication : Application() {
     override fun onCreate() {
@@ -9,7 +8,7 @@ class MainApplication : Application() {
 
         application = this
 
-        Stetho.initializeWithDefaults(this)
+//        Stetho.initializeWithDefaults(this)
     }
 
     companion object {
@@ -18,7 +17,5 @@ class MainApplication : Application() {
         fun getInstance(): MainApplication {
             return application
         }
-
     }
-
 }

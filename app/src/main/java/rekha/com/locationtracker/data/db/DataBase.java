@@ -10,6 +10,7 @@ import android.content.Context;
 @TypeConverters({LocationTypeConverter.class})
 public abstract class DataBase extends RoomDatabase {
 
+    private static final String DB_NAME = "Location_Tracker_DB";
     public abstract UserJourneyDao userJourneyDaoModel();
 
     private static DataBase INSTANCE;
@@ -18,7 +19,7 @@ public abstract class DataBase extends RoomDatabase {
         if (INSTANCE == null) {
             INSTANCE =
                     Room.databaseBuilder(context.getApplicationContext(),
-                            DataBase.class, "Location_Tracker_DB")
+                            DataBase.class, DB_NAME)
                             .build();
         }
         return INSTANCE;

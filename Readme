@@ -14,4 +14,70 @@ Primary Goals:
 --------------
 1. Build an app that can display the user’s current currentLocation on a map
     a. LocationViewModel : which maintains the LiveData of current Location
+    b. LocationViewModel is listening RepositoryLiveData
+    c. Repository is starting a service which look for location changes and give updates to repository
+    d. Map fragment is listening to LocationViewModel : so location is shown on map if Location live data changes
 
+2. Update the map in real time as the user moves
+    a. On user movement, locationService gets a callback which will change repository location live data
+    b. so map location gets changed
+
+3. In response to a “tracking on/off” UI switch, record or do not record the user’s movements.
+    a. Tracking on/off flag is notified to repository so that it can store user moments if tracking is on
+
+4. Display a path over the map as the user moves, that represents the user’s movements that are currently being recorded.
+    a. while tracking is on and user is moving, all those routes are drawn on map asking the latlng list from repository through viewModel
+
+5. If a journey is defined as a set of recorded locations between a tracking on and a
+   tracking off switch, retain the user’s journeys.
+    a. Data base "Location_Tracker_DB" is created using RoomDatabase
+    b. Table is created to store user journeys called "UserJourney", Dao is created to make queries on this Table.
+    e. When user switches tracking off, repository stores the user moments which are recorded into Data base
+
+6. Allow the user to see all their journeys in a list.
+    a. Using "UserJourneyDao" user journey are accessed and displayed in recycler view : sorted based on time
+
+7. Allow the user to see the start and end times of their journeys when they select them
+from the list.
+    a. shown the route on map , with start and end point markers
+
+8. The app should record the user’s location in the background if the user selects
+   “tracking on” and closes the UI.
+    a. Service will be running in background when user keep tracking on and gets out of UI
+
+9. The app should not use the battery if the user selects “tracking off” and backgrounds
+   the app.
+    a. Service is stopped when user turns tracking off so that device battery is not used.
+
+10. If the app is resumed from the background during tracking, it should correctly display
+    a path representing the journey that is currently being recorded.
+    a. Path is shown when user returns from background , as user movements are stored in repository
+
+Bonus Goals:
+------------
+1. Allow the user to see each journey’s path plotted on a map, when selected from the
+list.
+   a. shown the route on map , with start and end point markers
+   b. start and end time is shown
+
+Known things
+____________
+-> If last known location is available then, on app launch map will show current location else it wont.
+-> Some times there will be delay in drawing route on map
+-> Tested using fake GPS app in device to change location
+
+Uncompleted Tasks
+-----------------
+Bonus Goals:
+------------
+-> Show any other interesting data you can think of relating to a journey, when selected
+   from the list : Time constraint
+-> Secure the data that’s stored on the device. : We can encrypt data before putting it into database
+
+Optional :
+----------
+-> Retain the user’s data if the app is deleted and re-installed
+    : data can be stored into a file rather than db or
+        shared preference so that data is not deleted even after uninstalling app
+    -> Detect the user’s motion, and automatically determine when to turn tracking “on” or
+   “off”, in a way that conserves battery power.

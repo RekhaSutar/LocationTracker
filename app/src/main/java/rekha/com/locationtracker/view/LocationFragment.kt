@@ -1,10 +1,10 @@
 package rekha.com.locationtracker.view
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.graphics.Color
-import android.os.Bundle
 import android.util.Log
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -12,7 +12,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import rekha.com.locationtracker.data.Location
 import rekha.com.locationtracker.data.LocationViewModel
@@ -25,7 +24,7 @@ class LocationFragment : SupportMapFragment(), OnMapReadyCallback {
     private lateinit var currentLocation: Location
     private var googleMap: GoogleMap? = null
     private var isTrackingOn = false
-
+    private lateinit var baseActivity : BaseActivity
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -78,6 +77,8 @@ class LocationFragment : SupportMapFragment(), OnMapReadyCallback {
             locationViewModel.startTracking()
         } else {
             locationViewModel.stopTracking()
+            (activity as BaseActivity).showMessage("Your tracked journey is saved")
+            googleMap?.clear()
         }
     }
 
@@ -101,6 +102,7 @@ class LocationFragment : SupportMapFragment(), OnMapReadyCallback {
 
     private fun showUserPathOnMap() {
         googleMap?.clear()
+
         Log.e(TAG, "showUserPathOnMap" + " LocationTrackingService")
         if (locationViewModel.getUserJourney().isNotEmpty()) {
             val listLatLng = arrayListOf<LatLng>()
@@ -117,6 +119,5 @@ class LocationFragment : SupportMapFragment(), OnMapReadyCallback {
             googleMap?.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         }
     }
-
 }
 
