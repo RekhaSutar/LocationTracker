@@ -79,5 +79,6 @@ Optional :
 -> Retain the user’s data if the app is deleted and re-installed
     : data can be stored into a file rather than db or
         shared preference so that data is not deleted even after uninstalling app
-    -> Detect the user’s motion, and automatically determine when to turn tracking “on” or
-   “off”, in a way that conserves battery power.
+
+-> Detect the user’s motion, and automatically determine when to turn tracking “on” or
+   “off”, in a way that conserves battery power.: may be implementing motion sensors based on users settings
