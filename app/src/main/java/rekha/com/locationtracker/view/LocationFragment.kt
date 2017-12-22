@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 import rekha.com.locationtracker.data.Location
 import rekha.com.locationtracker.data.LocationViewModel
+import rekha.com.locationtracker.data.Repository
 import rekha.com.locationtracker.utility.checkLocationPermission
 
 
@@ -76,11 +77,14 @@ class LocationFragment : SupportMapFragment(), OnMapReadyCallback {
         if (isTrackingOn) {
             locationViewModel.startTracking()
         } else {
+            if (locationViewModel.getUserJourney().isNotEmpty() && locationViewModel.getUserJourney().size > 1) {
+                (activity as BaseActivity).showMessage("Your tracked journey is saved")
+            }
             locationViewModel.stopTracking()
-            (activity as BaseActivity).showMessage("Your tracked journey is saved")
             googleMap?.clear()
         }
     }
+
 
     override fun onPause() {
         Log.d(TAG, "onPause")

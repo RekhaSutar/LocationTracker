@@ -25,10 +25,10 @@ class UserJourneyListActivity : BaseActivity() {
         list.adapter = adapter
 
         userJourneyViewModel = ViewModelProviders.of(this).get(UserJourneyViewModel::class.java)
-        GetUserJourneysInBackGround(userJourneyViewModel, adapter).execute()
+        GetUserJourneysInBackGround(this, userJourneyViewModel, adapter).execute()
     }
 
-    class GetUserJourneysInBackGround(private val userJourneyViewModel: UserJourneyViewModel, private val adapter: UserJourneyListAdapter):
+    class GetUserJourneysInBackGround(private val activity: BaseActivity, private val userJourneyViewModel: UserJourneyViewModel, private val adapter: UserJourneyListAdapter):
             AsyncTask<Unit, List<UserJourney>, List<UserJourney>>(){
         override fun doInBackground(vararg params: Unit?): List<UserJourney>? {
             return userJourneyViewModel.getAllUserJourneys()
@@ -37,6 +37,8 @@ class UserJourneyListActivity : BaseActivity() {
         override fun onPostExecute(result: List<UserJourney>?) {
             if (result != null) {
                 adapter.addUserJourneyList(result)
+            }else{
+                activity.showMessage("You don't have any Journeys stored")
             }
         }
     }

@@ -59,9 +59,11 @@ object Repository {
 
     fun stopTracking() {
         isTrackingOn = false
-        StoreUserJourneyInBackGround(appDatabase).execute(UserJourney(userMovements))
+        if (userMovements.isNotEmpty() && userMovements.size > 1) {
+            StoreUserJourneyInBackGround(appDatabase).execute(UserJourney(userMovements))
 //        clear user records
-        userMovements = arrayListOf()
+            userMovements = arrayListOf()
+        }
     }
 
     class StoreUserJourneyInBackGround(private val appDatabase: DataBase) : AsyncTask<UserJourney, Unit, Unit>() {

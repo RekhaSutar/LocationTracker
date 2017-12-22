@@ -32,4 +32,18 @@ class MainActivity : BaseActivity() {
         startActivity(Intent(this, UserJourneyListActivity::class.java))
         return super.onOptionsItemSelected(item)
     }
+
+    private var count: Int = 0
+    override fun onBackPressed() {
+        if (count == 0) {
+            count = 1
+            if (switchLocationTrack.isChecked) {
+                showMessage("Press back again to stop tracking and close the app")
+            } else {
+                showMessage("Press back again to close the app")
+            }
+        } else {
+            super.onBackPressed()
+        }
+    }
 }
